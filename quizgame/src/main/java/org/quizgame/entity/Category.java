@@ -1,18 +1,29 @@
 package org.quizgame.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Category {
-
-    public Category(){};
-
     @Id @GeneratedValue
     private Long id;
 
     private String name;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<SubCategory> subCategories = new ArrayList<>();
+
+    public Category(){
+    };
+
+    public List<SubCategory> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategory(SubCategory subCategory) {
+        this.subCategories.add(subCategory);
+    }
 
     public Long getId() {
         return id;
