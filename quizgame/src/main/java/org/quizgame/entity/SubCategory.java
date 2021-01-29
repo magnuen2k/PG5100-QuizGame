@@ -3,6 +3,7 @@ package org.quizgame.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class SubCategory {
@@ -13,6 +14,13 @@ public class SubCategory {
     private Long id;
 
     private String name;
+
+    @ManyToOne
+    private Category category;
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
