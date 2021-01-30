@@ -12,9 +12,10 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<SubCategory> subCategories = new ArrayList<>();
+    private List<SubCategory> subCategories;
 
     public Category(){
+        this.subCategories = new ArrayList<>();
     };
 
     public List<SubCategory> getSubCategories() {
