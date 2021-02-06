@@ -16,9 +16,7 @@
     <!--
         Maven phases:
         https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference
-
         Main ones:
-
         *clean*
         compile
         process-test-classes
@@ -30,10 +28,8 @@
         verify
         install
         deploy
-
         apart from *clean*, when executing one of those phases (eg "mvn test"), all previous
         phases are executed as well.
-
         clean: delete everything in the "target" folders
     -->
 
@@ -83,9 +79,7 @@
     <!--
     Here we define all third-party dependencies we need in the sub-modules, so that we
     do not have to copy&paste each time the <version> and <scope> tags
-
     To check for new versions, use:
-
     mvn versions:display-dependency-updates -DprocessDependencyManagement=false
     -->
     <dependencyManagement>
@@ -154,7 +148,6 @@
                 This is needed for some libraries that do not support
                 JUnit 5 yet, like Arquillian:
                 https://github.com/arquillian/arquillian-core/issues/137
-
                 TODO: remove once Arquillian is supported
               -->
             <dependency>
@@ -315,6 +308,16 @@
                 <version>2.3.1</version>
             </dependency>
             <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>javax.el</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>6.2.0.Final</version>
+            </dependency>
+            <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>1.13</version>
@@ -370,14 +373,10 @@
 
     <!--
         Profiles enable you to have custom configurations only in some special occasions.
-
         You can use "-P <id>" to activate a profile with the given <id>, eg
-
         mvn verify -P <id>
-
         To see all available profiles in a project (which could be declared in sub-modules),
         user:
-
         mvn help:all-profiles | grep "Profile Id"
     -->
     <profiles>
@@ -392,7 +391,6 @@
             the need to reset all their configurations).
             Note: some plugins are default in Maven, like the compiler.
             To see what actually executed, you can look at the logs.
-
             WARNING: make sure that in your projects you do have the <version> tags
             for your plugins. If you do not, Maven might silently ignore it...
             this is very different from forgetting a <version> in an imported library,
