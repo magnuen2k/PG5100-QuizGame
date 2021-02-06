@@ -16,7 +16,7 @@ class QuizEntityTest extends EntityTestBase{
     public void testQuiz() {
         Category category = createCategory("no");
         SubCategory sub = createSubcategory("yes", category);
-        Quiz quiz = createQuiz(sub);
+        Quiz quiz = createQuiz("Test", sub);
 
         assertFalse(persistInATransaction(category, quiz));
 
@@ -27,7 +27,7 @@ class QuizEntityTest extends EntityTestBase{
     public void testQuizWithSubCategory(){
         Category c = createCategory("TestCategory");
         SubCategory sc = createSubcategory("TestSub", c);
-        Quiz quiz = createQuiz(sc);
+        Quiz quiz = createQuiz("Test", sc);
 
         assertTrue(persistInATransaction(c, sc, quiz));
     }
@@ -42,12 +42,12 @@ class QuizEntityTest extends EntityTestBase{
         SubCategory EJB = createSubcategory("EJB", JEE);
         SubCategory JSF = createSubcategory("JSF", JEE);
 
-        assertTrue(persistInATransaction(JPA, JEE, EJB, JSF));
+        assertTrue(persistInATransaction(JEE, JPA, EJB, JSF));
 
-        Quiz quiz1 = createQuiz(JPA);
-        Quiz quiz2 = createQuiz(JPA);
-        Quiz quiz3 = createQuiz(EJB);
-        Quiz quiz4 = createQuiz(JSF);
+        Quiz quiz1 = createQuiz("Test", JPA);
+        Quiz quiz2 = createQuiz("Test2", JPA);
+        Quiz quiz3 = createQuiz("Test3", EJB);
+        Quiz quiz4 = createQuiz("Test4", JSF);
 
         assertTrue(persistInATransaction(quiz1, quiz2, quiz3, quiz4));
 

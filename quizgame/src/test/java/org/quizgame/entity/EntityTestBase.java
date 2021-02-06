@@ -43,12 +43,12 @@ public abstract class EntityTestBase {
     }
 
     public Quiz createQuiz() {
-        return createQuiz(null);
+        return createQuiz("Question", null);
     }
 
-    public Quiz createQuiz(SubCategory subCategory) {
+    public Quiz createQuiz(String name, SubCategory subCategory) {
         Quiz quiz = new Quiz();
-        quiz.setQuestion("Whats nine plus ten?");
+        quiz.setQuestion(name);
         quiz.setAnswer1("20");
         quiz.setAnswer2("18");
         quiz.setAnswer3("21");
