@@ -10,46 +10,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class QuizEntityTest {
-
-    private EntityManagerFactory factory;
-    private EntityManager em;
-
-    @BeforeEach
-    public void init() {
-        factory = Persistence.createEntityManagerFactory("DB");
-        em = factory.createEntityManager();
-    }
-
-    @AfterEach
-    public void tearDown() {
-        em.close();
-        factory.close();
-    }
-
-    private boolean persistInATransaction(Object... obj) {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
-        try {
-            for(Object o : obj) {
-                em.persist(o);
-            }
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("FAILED TRANSACTION: " + e.toString());
-            tx.rollback();
-            return false;
-        }
-
-        return true;
-    }
+class QuizEntityTest extends EntityTestBase{
 
     @Test
     public void testQuiz() {
-        Quiz quiz = createQuiz();
+        Category category = createCategory("no");
+        SubCategory sub = createSubcategory("yes", category);
+        Quiz quiz = createQuiz("Test", sub);
 
-        assertTrue(persistInATransaction(quiz));
+        assertFalse(persistInATransaction(category, quiz));
 
         System.out.println("GENERATED ID: " + quiz.getId());
     }
@@ -58,7 +27,7 @@ class QuizEntityTest {
     public void testQuizWithSubCategory(){
         Category c = createCategory("TestCategory");
         SubCategory sc = createSubcategory("TestSub", c);
-        Quiz quiz = createQuiz(sc);
+        Quiz quiz = createQuiz("Test", sc);
 
         assertTrue(persistInATransaction(c, sc, quiz));
     }
@@ -73,12 +42,12 @@ class QuizEntityTest {
         SubCategory EJB = createSubcategory("EJB", JEE);
         SubCategory JSF = createSubcategory("JSF", JEE);
 
-        assertTrue(persistInATransaction(JPA, JEE, EJB, JSF));
+        assertTrue(persistInATransaction(JEE, JPA, EJB, JSF));
 
-        Quiz quiz1 = createQuiz(JPA);
-        Quiz quiz2 = createQuiz(JPA);
-        Quiz quiz3 = createQuiz(EJB);
-        Quiz quiz4 = createQuiz(JSF);
+        Quiz quiz1 = createQuiz("Test", JPA);
+        Quiz quiz2 = createQuiz("Test2", JPA);
+        Quiz quiz3 = createQuiz("Test3", EJB);
+        Quiz quiz4 = createQuiz("Test4", JSF);
 
         assertTrue(persistInATransaction(quiz1, quiz2, quiz3, quiz4));
 
@@ -94,35 +63,5 @@ class QuizEntityTest {
 
     }
 
-    public Quiz createQuiz() {
-        return createQuiz(null);
-    }
 
-    public Quiz createQuiz(SubCategory subCategory) {
-        Quiz quiz = new Quiz();
-        quiz.setQuestion("Whats nine plus ten?");
-        quiz.setAnswer1("20");
-        quiz.setAnswer2("18");
-        quiz.setAnswer3("21");
-        quiz.setAnswer4("50");
-        quiz.setCorrectAnswerIndex(1);
-        quiz.setSubCategory(subCategory);
-
-        return quiz;
-    }
-
-    public SubCategory createSubcategory(String name, Category category) {
-        SubCategory subCategory = new SubCategory();
-        subCategory.setName(name);
-        subCategory.setCategory(category);
-
-        return subCategory;
-    }
-
-    public Category createCategory(String name) {
-        Category category = new Category();
-        category.setName(name);
-
-        return category;
-    }
 }
