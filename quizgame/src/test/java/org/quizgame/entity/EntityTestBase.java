@@ -9,22 +9,22 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public abstract class EntityTestBase {
-    protected EntityManagerFactory factory;
+    private EntityManagerFactory factory;
     protected EntityManager em;
 
     @BeforeEach
-    public void init() {
+    protected void init() {
         factory = Persistence.createEntityManagerFactory("DB");
         em = factory.createEntityManager();
     }
 
     @AfterEach
-    public void tearDown() {
+    protected void tearDown() {
         em.close();
         factory.close();
     }
 
-    boolean persistInATransaction(Object... obj) {
+    protected boolean persistInATransaction(Object... obj) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
@@ -42,13 +42,13 @@ public abstract class EntityTestBase {
         return true;
     }
 
-    public Quiz createQuiz() {
+    protected Quiz createQuiz() {
         return createQuiz("Question", null);
     }
 
-    public Quiz createQuiz(String name, SubCategory subCategory) {
+    protected Quiz createQuiz(String question, SubCategory subCategory) {
         Quiz quiz = new Quiz();
-        quiz.setQuestion(name);
+        quiz.setQuestion(question);
         quiz.setAnswer1("20");
         quiz.setAnswer2("18");
         quiz.setAnswer3("21");
@@ -59,7 +59,7 @@ public abstract class EntityTestBase {
         return quiz;
     }
 
-    public SubCategory createSubcategory(String name, Category category) {
+    protected SubCategory createSubcategory(String name, Category category) {
         SubCategory subCategory = new SubCategory();
         subCategory.setName(name);
         subCategory.setCategory(category);
@@ -67,7 +67,7 @@ public abstract class EntityTestBase {
         return subCategory;
     }
 
-    public Category createCategory(String name) {
+    protected Category createCategory(String name) {
         Category category = new Category();
         category.setName(name);
 
