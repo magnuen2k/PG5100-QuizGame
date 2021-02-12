@@ -29,8 +29,8 @@ public class CategoryEjb {
         SubCategory sc = new SubCategory();
         Category c = em.find(Category.class, parentId);
 
-        if(c == null) {
-            throw new
+        if(c == null){
+            throw new IllegalArgumentException("Category with id "+parentId+" does not exist");
         }
 
         c.setSubCategory(sc);
