@@ -47,7 +47,7 @@ public class CategoryEjb {
         List<Category> categories = query.getResultList();
 
         if(withSub) {
-            categories.forEach(Hibernate::initialize);
+            categories.forEach(c -> c.getSubCategories().size());
         }
 
         return categories;
@@ -57,7 +57,7 @@ public class CategoryEjb {
         Category c = em.find(Category.class, id);
 
         if(withSub && c != null) {
-            Hibernate.initialize(c);
+            c.getSubCategories().size();
         }
 
         return c;
