@@ -62,6 +62,10 @@ public class MatchController implements Serializable {
         return counter + 1;
     }
 
+    public int getNumberOfQuizzes(){
+        return NUMBER_QUIZZES;
+    }
+
     public String answerQuiz(int index){
 
         Quiz quiz = getCurrentQuiz();

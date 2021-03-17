@@ -41,7 +41,7 @@
                     </c:when>
                     <c:otherwise>
                         <!-- Answer questions -->
-                        <p class="question">Question  <h:outputLabel value="#{matchController.getIncreasedCounter}" class="question"/></p>
+                        <p class="question">Question  <h:outputLabel value="#{matchController.increasedCounter}" class="question"/></p>
                         <p class="question">out of  <h:outputLabel value="#{matchController.numberOfQuizzes}" class="question"/></p>
 
                         <br/>
@@ -52,16 +52,16 @@
                         <p class="question">Question: "<h:outputLabel value="#{quiz.question}"/>"</p>
 
                         <h:form>
-                            <h:commandButton value="A: #{quiz.firstAnswer}" action="#{matchController.answerQuiz(0)}"  class="gameBtn answer"/>
+                            <h:commandButton value="A: #{quiz.answer1}" action="#{matchController.answerQuiz(0)}"  class="gameBtn answer"/>
                         </h:form>
                         <h:form>
-                            <h:commandButton value="B: #{quiz.secondAnswer}" action="#{matchController.answerQuiz(1)}"  class="gameBtn answer"/>
+                            <h:commandButton value="B: #{quiz.answer2}" action="#{matchController.answerQuiz(1)}"  class="gameBtn answer"/>
                         </h:form>
                         <h:form>
-                            <h:commandButton value="C: #{quiz.thirdAnswer}" action="#{matchController.answerQuiz(2)}"  class="gameBtn answer"/>
+                            <h:commandButton value="C: #{quiz.answer3}" action="#{matchController.answerQuiz(2)}"  class="gameBtn answer"/>
                         </h:form>
                         <h:form>
-                            <h:commandButton value="D: #{quiz.fourthAnswer}" action="#{matchController.answerQuiz(3)}"  class="gameBtn answer"/>
+                            <h:commandButton value="D: #{quiz.answer4}" action="#{matchController.answerQuiz(3)}"  class="gameBtn answer"/>
                         </h:form>
 
                     </c:otherwise>
