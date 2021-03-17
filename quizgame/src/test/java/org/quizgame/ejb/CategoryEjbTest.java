@@ -1,12 +1,6 @@
 package org.quizgame.ejb;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.quizgame.entity.Category;
 import org.quizgame.entity.SubCategory;
 
@@ -15,26 +9,11 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@RunWith(Arquillian.class)
-public class CategoryEjbTest {
+public class CategoryEjbTest extends EjbTestBase {
 
-    @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addPackages(true, "org.quizgame")
-                .addAsResource("META-INF/persistence.xml");
-    }
 
     @EJB
     private CategoryEjb categoryEjb;
-
-    @EJB
-    private ResetEjb resetEjb;
-
-    @Before
-    public void init(){
-        resetEjb.resetDatabase();
-    }
 
     @Test
     public void testNoCategory() {
